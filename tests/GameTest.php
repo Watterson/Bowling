@@ -10,10 +10,16 @@ Class GameTest extends TestCase
      * @var Game
      */
 
-    public function testCanCreateGame()
+    private $game;
+
+    public function setUp() :void
     {
-        $game = new Game(50);
-        $this->assertInstanceOf(Game::class, $game);
+        $this->game = new Game();
+    }
+    public function testCanRoll()
+    {
+        $roll = $this->game->roll(5);
+        $this->assertEquals(5, $roll);
     }
 
 
