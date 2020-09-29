@@ -25,16 +25,29 @@ class Game
     {
         $score = 0;
         $firstInFrame = 0;
-        for($frame = 0; $frame < 10; $frame++){
-            if($this->isSpare($firstInFrame)){
-                $score += 10 + $this->rolls[$firstInFrame+2];
+        for($frame = 0; $frame < 10; $frame++){#
+            if($this->isStrike($firstInFrame)){
+                $score += 10 + $this->nextTwoBallsForStrike($firstInFrame);
+                $firstInFrame++;
+            }
+            elseif($this->isSpare($firstInFrame)){
+                $score += 10 + $this->nextBallForSpare($firstInFrame);
                 $firstInFrame += 2;
             }else{
-                $score += $this->rolls[$firstInFrame] + $this->rolls[$firstInFrame+1];
+                $score += $this->twoBallsInFrame($firstInFrame);
                 $firstInFrame += 2;
             }
         }
         return $score;
+    }
+
+    public function isStrike($firstInFrame)
+    {
+        if($this->rolls[$firstInFrame] == 10){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function isSpare($firstInFrame)
@@ -44,5 +57,20 @@ class Game
         }else{
             return false;
         }
+    }
+
+    public function nextTwoBallsForStrike($firstInFrame)
+    {
+        return $this->rolls[$firstInFrame+1] + $this->rolls[$firstInFrame+2];
+    }
+
+    public function nextBallForSpare($firstInFrame)
+    {
+        return $this->rolls[$firstInFrame+2];
+    }
+
+    public function twoBallsInFrame($firstInFrame)
+    {
+        return $this->rolls[$firstInFrame] + $this->rolls[$firstInFrame+1];
     }
 }
