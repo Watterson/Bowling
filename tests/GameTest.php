@@ -63,5 +63,10 @@ Class GameTest extends TestCase
         $this->assertEquals(24, $this->game->score());
     }
 
-    
+    public function testRollPerfectGame()
+    {
+        $this->rollMany(20, 10);
+        $this->assertEquals(300, $this->game->score());
+
+    }
 }
