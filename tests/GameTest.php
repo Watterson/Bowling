@@ -16,22 +16,26 @@ Class GameTest extends TestCase
 
     public function setUp() :void
     {
-        $this->score = 0;
-        $this->game = new Game($this->score);
+        $this->game = new Game(0);
     }
-    public function testCanRoll()
+    
+    public function rollMany($n, $pins)
     {
-        $score = $this->game->roll(0);
-        $this->assertEquals(0, $score);
+        for($i = 0; $i<$n; $i++){
+            $this->score = $this->game->roll($pins);
+        }
     }
 
     public function testRollGutterGame()
     {
-        for($i = 0; $i<20; $i++){
-           $this->score = $this->game->roll(0);
-        }
+        $this->rollMany(20,0);
         $this->assertEquals(0, $this->score);
+    }
 
+    public function testRollAllOnes()
+    {
+        $this->rollMany(20,1);
+        $this->assertEquals(20, $this->score);
     }
 
 }
