@@ -3,17 +3,20 @@ namespace Bowling;
 
 class Game
 {
-    //protected $score;
+    protected $score;
+
     /**
      * Game constructor.
+     * @param int $score
      */
-    public function __construct()
+    public function __construct(int $score)
     {
-
+        $this->score = $score;
     }
 
     public function roll($pins)
     {
-        return $pins;
+        $this->score += $pins;
+        return $this->score;
     }
 }
